@@ -20,7 +20,7 @@ class PageProcessor:
         self.remove_scripts()
         self.prelaod_iframes()
         self.dissolve_noscripts()
-        return self.soup.prettify()  # make str(self.soup) to save time
+        return self.soup.prettify()  # TODO: use str(self.soup) to save time
 
     # Removes all script tags from the html
 

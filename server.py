@@ -11,9 +11,10 @@
 # Renders everything in an iframe with scripts disabled
 # Loads images well but messes up any iframes within the article and links
 
-from flask import Flask, render_template
+from flask import Flask
 import requests
 import time
+from process import PageProcessor
 
 
 # Change the cookie data to your own.
@@ -42,21 +43,17 @@ for cookie in cookie_data:
             path=cookie["path"], expires=cookie["expires"], secure=True)
 
 
-# save the response
-# f = open("temp.html", "w")
-# f.write(resp.text)
-# f.close()
-
 app = Flask(__name__)
 
-#
+
 @app.route("/", defaults={"path": ""})
 @app.route("/<path:path>")
 def hello(path):
     url = "https://" + path
     resp = requests.get(url, cookies=jar)
     if resp.status_code == 200:
-        return render_template('iframes.html', article=resp.text)
+        processor = PageProcessor(resp.text)
+        return processor.process_page()
     else:
         return "404: Page not found"
 
