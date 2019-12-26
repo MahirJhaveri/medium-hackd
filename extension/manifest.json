@@ -1,0 +1,20 @@
+{
+    "name": "Medium Hacked",
+    "version": "1.0",
+    "description": "Read medium articles for free",
+    "permissions": ["storage"],
+    "page_action": {
+        "default_popup": "popup.html"
+    },
+    "content_scripts": [
+        {
+            "matches": ["*://*.medium.com/*"],
+            "js": ["content.js"]
+        }
+    ],
+    "background": {
+        "scripts": ["background.js"],
+        "persistent": false
+    },
+    "manifest_version": 2
+}
