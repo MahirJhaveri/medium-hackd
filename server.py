@@ -8,32 +8,19 @@
 # Server extended to support any article from medium.com, towardsdatascience.com etc.
 # Example query : https://localhost:5000/medium.com/{path_to_article}
 
-# Renders everything in an iframe with scripts disabled
-# Loads images well but messes up any iframes within the article and links
+# Disables medium's scripts and injects custom scripts
 
 from flask import Flask
 import requests
-import time
 from process import PageProcessor
+from cookies import load_cookies
 
+# Variable which tune functions to be fast if set to True
+# Only for test purposes
+LITE_MODE = True
 
-# Change the cookie data to your own.
-cookie_data = [
-    {
-        "key": "uid",
-        "value": "564f5af43366",
-        "domain": ".medium.com",
-        "path": "/",
-        "expires": str(time.mktime((2020, 12, 20, 6, 48, 10, 0, 0, 0)))
-    },
-    {
-        "key": "sid",
-        "value": "1:qVh3VQ8dlwIlmWW3NILqHh8a/E4xwKgTK1kPp5l8MG56IlmdzMyfuLXLapFudrhn",
-        "domain": ".medium.com",
-        "path": "/",
-        "expires": str(time.mktime((2020, 12, 20, 6, 48, 10, 0, 0, 0)))
-    }
-]
+# Create a .env file with the relevant cookie information
+cookie_data = load_cookies()
 
 # Add custom cookies to request
 jar = requests.cookies.RequestsCookieJar()
@@ -53,7 +40,7 @@ def hello(path):
     resp = requests.get(url, cookies=jar)
     if resp.status_code == 200:
         processor = PageProcessor(resp.text)
-        return processor.process_page()
+        return processor.process_page() if not LITE_MODE else processor.process_page_lite()
     else:
         return "404: Page not found"
 

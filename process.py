@@ -22,6 +22,14 @@ class PageProcessor:
         self.dissolve_noscripts()
         return self.soup.prettify()  # TODO: use str(self.soup) to save time
 
+    # Does not preload iframes
+    # For fast testing purposes only
+
+    def process_page_lite(self):
+        self.remove_scripts()
+        self.dissolve_noscripts()
+        return self.soup.prettify()  # TODO: use str(self.soup) to save time
+
     # Removes all script tags from the html
 
     def remove_scripts(self):
