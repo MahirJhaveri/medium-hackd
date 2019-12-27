@@ -6,8 +6,9 @@ import requests
 
 
 class PageProcessor:
-    def __init__(self, data):
+    def __init__(self, data, domain="https://medium.com"):
         self.soup = BeautifulSoup(data, 'html.parser')
+        self.domain = domain
         f = open('./resize_iframe.js', 'r')
         self.resize_function = f.read()
         f.close()
@@ -20,6 +21,7 @@ class PageProcessor:
         self.remove_scripts()
         self.prelaod_iframes()
         self.dissolve_noscripts()
+        self.update_links()
         return self.soup.prettify()  # TODO: use str(self.soup) to save time
 
     # Does not preload iframes
@@ -28,6 +30,7 @@ class PageProcessor:
     def process_page_lite(self):
         self.remove_scripts()
         self.dissolve_noscripts()
+        self.update_links()
         return self.soup.prettify()  # TODO: use str(self.soup) to save time
 
     # Removes all script tags from the html
@@ -46,6 +49,14 @@ class PageProcessor:
             new_tag = self.soup.new_tag('div')
             new_tag.contents = tag.contents
             tag.replace_with(new_tag)
+
+    # Convert relative urls to absolute
+
+    def update_links(self):
+        anchor_tags = self.soup.find_all('a')
+        for tag in anchor_tags:
+            if tag.attrs['href'] and len(tag.attrs['href']) > 0 and tag.attrs['href'][0] == '/':
+                tag.attrs['href'] = self.domain + tag.attrs['href']
 
     # fetches the iframe contents from respective srcs and
     # adds js to resize the iframe window dynamically

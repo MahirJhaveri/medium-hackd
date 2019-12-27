@@ -50,10 +50,11 @@ app = Flask(__name__)
 @app.route("/<path:path>")
 def hello(path):
     url = "https://" + path
+    domain = "https://" + path[:path.find('/')]
     resp = requests.get(url, cookies=jar)
     if resp.status_code == 200:
         app.logger.info('%s retrieved successfully' % url)
-        processor = PageProcessor(resp.text)
+        processor = PageProcessor(resp.text, domain)
         return processor.process_page() if not LITE_MODE else processor.process_page_lite()
     else:
         app.logger.info('Error %d retrieving %s' % (resp.status_code, url))
