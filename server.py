@@ -14,13 +14,26 @@ from flask import Flask
 import requests
 from process import PageProcessor
 from cookies import load_cookies
+import logging
 
-# Variable which tune functions to be fast if set to True
-# Only for test purposes
-LITE_MODE = True
+
+# ------- CONFIGURATIONS ---------
+LITE_MODE = True       # Set only for fast testing puposes
+LOG_TO_FILE = True
+
 
 # Create a .env file with the relevant cookie information
 cookie_data = load_cookies()
+
+
+# Logging
+if LOG_TO_FILE:
+    logging.basicConfig(filename="server.log", level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+else:
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
+
 
 # Add custom cookies to request
 jar = requests.cookies.RequestsCookieJar()
@@ -39,9 +52,11 @@ def hello(path):
     url = "https://" + path
     resp = requests.get(url, cookies=jar)
     if resp.status_code == 200:
+        app.logger.info('%s retrieved successfully' % url)
         processor = PageProcessor(resp.text)
         return processor.process_page() if not LITE_MODE else processor.process_page_lite()
     else:
+        app.logger.info('Error %d retrieving %s' % (resp.status_code, url))
         return "404: Page not found"
 
 
