@@ -18,7 +18,7 @@ import logging
 
 
 # ------- CONFIGURATIONS ---------
-LITE_MODE = True       # Set only for fast testing puposes
+LITE_MODE = False       # Set only for fast testing puposes
 LOG_TO_FILE = True
 
 
@@ -43,10 +43,18 @@ for cookie in cookie_data:
             path=cookie["path"], expires=cookie["expires"], secure=True)
 
 
+f = open('./index.html', 'r')
+homepage = f.read()
+f.close()
+
 app = Flask(__name__)
 
 
-@app.route("/", defaults={"path": ""})
+@app.route("/")
+def index():
+    return homepage
+
+
 @app.route("/<path:path>")
 def hello(path):
     url = "https://" + path
