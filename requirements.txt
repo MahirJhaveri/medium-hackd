@@ -1,0 +1,14 @@
+beautifulsoup4==4.8.2
+certifi==2019.11.28
+chardet==3.0.4
+Click==7.0
+Flask==1.1.1
+idna==2.8
+itsdangerous==1.1.0
+Jinja2==2.10.3
+MarkupSafe==1.1.1
+python-dotenv==0.10.3
+requests==2.22.0
+soupsieve==1.9.5
+urllib3==1.25.7
+Werkzeug==0.16.0
