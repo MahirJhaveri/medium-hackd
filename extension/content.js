@@ -1,5 +1,5 @@
-console.log("hello")
-document.querySelector('#hack').addEventListener('click', () => {
-        console.log(window.location.href)
-        console.log("sup")
-})
+chrome.extension.onMessage.addListener(function(msg, sender, sendResponse) {
+    if (msg.action.message == 'call') {
+        window.open(msg.action.url,"_self")
+    }
+  });
