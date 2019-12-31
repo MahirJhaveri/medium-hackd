@@ -33,6 +33,12 @@ $(document).ready(
             else {
                 console.log("Invalid url please try again");
             }
-        })
+        });
+
+        $('#textbox').keyup(function (event) {
+            if (event.keyCode === 13) {
+                $("#send").click();
+            }
+        });
     }
 );
