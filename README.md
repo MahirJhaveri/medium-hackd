@@ -1,13 +1,12 @@
 # medium-hackd
 
-## Create a .env file in the main directory and fill it up as follows:
+## How to use the extension
 
-```
-UID="uid_data"
+Follow the steps:
 
-UID_EXP="yyyy,mm,dd,hh,mm,ss"
+1.  Go to more tools using the hamburger button on chrome
+2.  Go into extensions and turn on developer mode.
+3.  On the upper left click on load unpacked and select the folder extension
+4.  Once loaded you will see the extension on the page.
+5.  Head on to the medium article and click on the extension to read your article.
 
-SID="sid_data"
-
-SID_EXP="yyyy,mm,dd,hh,mm,ss"
-```
