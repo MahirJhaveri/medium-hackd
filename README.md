@@ -10,3 +10,18 @@ Follow the steps:
 4.  Once loaded you will see the extension on the page.
 5.  Head on to the medium article and click on the extension to read your article.
 
+## Server
+
+Before starting the server on you local machine:
+
+Create a .env file and paste the following,
+
+```
+UID="uid_data"
+
+UID_EXP="yyyy,mm,dd,hh,mm,ss"
+
+SID="sid_data"
+
+SID_EXP="yyyy,mm,dd,hh,mm,ss"
+```
