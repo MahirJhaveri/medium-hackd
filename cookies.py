@@ -3,8 +3,11 @@ from dotenv import load_dotenv
 import os
 import time
 
-load_dotenv()
 
+# DEPRECATED:
+# File no longer used in server.py 
+
+load_dotenv()
 
 def load_cookies():
     cookie_data = cookie_data = [

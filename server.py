@@ -22,10 +22,6 @@ LITE_MODE = False       # Set only for fast testing puposes
 LOG_TO_FILE = True
 
 
-# Create a .env file with the relevant cookie information
-cookie_data = load_cookies()
-
-
 # Logging
 if LOG_TO_FILE:
     logging.basicConfig(filename="server.log", level=logging.DEBUG,
@@ -34,13 +30,6 @@ else:
     logging.basicConfig(level=logging.DEBUG,
                         format='%(asctime)s %(levelname)s %(name)s %(threadName)s : %(message)s')
 
-
-# Add custom cookies to request
-jar = requests.cookies.RequestsCookieJar()
-
-for cookie in cookie_data:
-    jar.set(cookie["key"], cookie["value"], domain=cookie["domain"],
-            path=cookie["path"], expires=cookie["expires"], secure=True)
 
 
 f = open('./index.html', 'r')
@@ -59,7 +48,7 @@ def index():
 def hello(path):
     url = "https://" + path
     domain = "https://" + path[:path.find('/')]
-    resp = requests.get(url, cookies=jar)
+    resp = requests.get(url)
     if resp.status_code == 200:
         app.logger.info('%s retrieved successfully' % url)
         processor = PageProcessor(resp.text, domain)

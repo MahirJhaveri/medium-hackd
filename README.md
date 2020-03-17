@@ -10,7 +10,7 @@ Follow the steps:
 4.  Once loaded you will see the extension on the page.
 5.  Head on to the medium article and click on the extension to read your article.
 
-## Server
+## Server (the following steps are no longer required)
 
 Before starting the server on you local machine:
 
