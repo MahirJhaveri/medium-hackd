@@ -1,7 +1,7 @@
 # medium-hackd
 
 
-### Presenting to you, a *seamless* new way to read premium Medium.com articles for ~~$5.00 per month~~ <ins>absolutely free</ins>.
+### Presenting to you, a *seamless* new way to read premium Medium.com articles for ~~$5.00/month~~ <ins>absolutely free</ins>.
 
 
 Our chrome extension, overlays any premium Medium.com article with the opened version, so that you can read it for absolutely free without any hassle of clearing cookies or opening an icognito window.
