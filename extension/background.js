@@ -8,6 +8,7 @@ chrome.runtime.onMessage.addListener( function (message, sender, sendResponse) {
                 console.log("try")  
                     console.log("sending")
                    chrome.tabs.query({active: true, currentWindow: true}, function(tabs){
+                       console.log("check")
                       chrome.tabs.sendMessage(tabs[0].id, {action: {message: "call", url:`https://radiant-brushlands-42787.herokuapp.com/${url}`}}, function(response) {});  
                    })
         });        
