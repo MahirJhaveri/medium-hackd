@@ -11,10 +11,12 @@
 # Disables medium's scripts and injects custom scripts
 
 from flask import Flask
+from flask import request as flask_request
 import requests
 from process import PageProcessor
 from cookies import load_cookies
 import logging
+from analytics import write_request_data
 
 
 # ------- CONFIGURATIONS ---------
@@ -49,6 +51,7 @@ def hello(path):
     url = "https://" + path
     domain = "https://" + path[:path.find('/')]
     resp = requests.get(url)
+    write_request_data(flask_request.remote_addr, url, resp.status_code)
     if resp.status_code == 200:
         app.logger.info('%s retrieved successfully' % url)
         processor = PageProcessor(resp.text, domain)
