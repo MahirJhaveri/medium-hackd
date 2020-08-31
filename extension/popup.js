@@ -1,8 +1,23 @@
   // popup script
-  window.addEventListener('load', (event) => {
+  let btn = document.querySelector(".btn")
+  console.log(btn)
+  let check = document.querySelector(".check")
+  console.log(check)
+  check.addEventListener("change", () => {
+    if (check.checked) {
+      console.log("to")
+      localStorage["check"] = true
+    } else {
+      localStorage["check"] = false
+    }
+  })
+
+  btn.addEventListener('click', (event) => {
+    console.log("hey")
     chrome.tabs.executeScript(null, {
-      file: 'content.js', //my content script   }, () => {
-        // connect() //this is where I call my function to establish a connection     });
+      file: 'content.js',
+    });
+    chrome.runtime.sendMessage({
+      clicked: true
     });
   });
-  chrome.runtime.sendMessage({clicked : true});
